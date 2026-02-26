@@ -304,46 +304,69 @@ const PreviewView = ({ data, file, onBack, onNext }) => {
     );
 };
 
-const ApplicationForm = ({ job, resumeData, onBack }) => (
-    <div className="animate-in fade-in duration-500 max-w-2xl mx-auto space-y-8">
-        <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-                <i className="fa-solid fa-wand-magic-sparkles text-gray-700"></i>
-                <h2 className="text-lg font-bold text-gray-900">Application Form</h2>
-            </div>
-            <p className="text-sm text-gray-400 mb-8 border-b border-gray-100 pb-6 font-medium">
-                Please answer the follow-up questions generated based on your resume analysis.
-            </p>
 
-            <div className="space-y-8">
-                {resumeData?.followupQuestions?.length > 0 ? (
-                    resumeData.followupQuestions.map((q, idx) => (
-                        <div key={q.id || idx}>
-                            <label className="block text-sm font-semibold mb-3 text-gray-900">
-                                {q.question_text} <span className="text-red-500">*</span>
-                            </label>
-                            <textarea 
-                                placeholder="Write your detailed answer here..."
-                                className="w-full h-28 p-4 border border-gray-200 rounded-xl bg-gray-50 text-gray-700 text-sm focus:border-pink-300 focus:bg-white outline-none transition-all" 
-                            />
+
+const ApplicationForm = ({ job, resumeData, onBack }) => {
+    const navigate = useNavigate(); // Initialize the navigate function
+
+    const handleSubmit = () => {
+        // You can add your submission logic/API calls here
+        console.log("Application Submitted!");
+        
+        // Redirect to the success page
+        navigate('/success');
+    };
+
+    return (
+        <div className="animate-in fade-in duration-500 max-w-2xl mx-auto space-y-8">
+            <div className="bg-white border border-gray-100 rounded-3xl p-8 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                    <i className="fa-solid fa-wand-magic-sparkles text-gray-700"></i>
+                    <h2 className="text-lg font-bold text-gray-900">Application Form</h2>
+                </div>
+                <p className="text-sm text-gray-400 mb-8 border-b border-gray-100 pb-6 font-medium">
+                    Please answer the follow-up questions generated based on your resume analysis.
+                </p>
+
+                <div className="space-y-8">
+                    {resumeData?.followupQuestions?.length > 0 ? (
+                        resumeData.followupQuestions.map((q, idx) => (
+                            <div key={q.id || idx}>
+                                <label className="block text-sm font-semibold mb-3 text-gray-900">
+                                    {q.question_text} <span className="text-red-500">*</span>
+                                </label>
+                                <textarea 
+                                    placeholder="Write your detailed answer here..."
+                                    className="w-full h-28 p-4 border border-gray-200 rounded-xl bg-gray-50 text-gray-700 text-sm focus:border-pink-300 focus:bg-white outline-none transition-all" 
+                                />
+                            </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-10">
+                            <p className="text-sm text-gray-500 italic">No additional questions required for this application.</p>
                         </div>
-                    ))
-                ) : (
-                    <div className="text-center py-10">
-                        <p className="text-sm text-gray-500 italic">No additional questions required for this application.</p>
-                    </div>
-                )}
+                    )}
+                </div>
+            </div>
+
+            <div className="flex items-center gap-4">
+                <button 
+                    onClick={onBack} 
+                    className="px-8 py-3.5 border border-gray-200 rounded-2xl bg-white font-bold text-sm text-gray-600 hover:bg-gray-50 transition-colors"
+                >
+                    Back
+                </button>
+                <button 
+                    onClick={handleSubmit} 
+                    className="flex-grow py-3.5 bg-pink-600 text-white rounded-2xl font-bold text-sm hover:bg-pink-700 shadow-lg shadow-pink-100 transition-all"
+                >
+                    Submit Application <i className="fa-regular fa-circle-check ml-2"></i>
+                </button>
             </div>
         </div>
+    );
+};
 
-        <div className="flex items-center gap-4">
-            <button onClick={onBack} className="px-8 py-3.5 border border-gray-200 rounded-2xl bg-white font-bold text-sm text-gray-600 hover:bg-gray-50 transition-colors">Back</button>
-            <button onClick={() => alert("Application Submitted!")} className="flex-grow py-3.5 bg-pink-600 text-white rounded-2xl font-bold text-sm hover:bg-pink-700 shadow-lg shadow-pink-100 transition-all">
-                Submit Application <i className="fa-regular fa-circle-check ml-2"></i>
-            </button>
-        </div>
-    </div>
-);
 
 const InfoBox = ({ label, value }) => (
     <div>

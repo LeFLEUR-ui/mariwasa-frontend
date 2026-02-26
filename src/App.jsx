@@ -5,6 +5,7 @@ import CareersPage from "./pages/CareersPage";
 import LandingPage from "./pages/LandingPage";
 import ApplyPage from "./pages/ApplyPage";
 import HRDashboard from "./pages/HRDashboard";
+import SubmissionSuccess from "./pages/SubmissionSuccess";
 
 function App() {
   return (
@@ -15,11 +16,11 @@ function App() {
         <Route path="/register" element={<CreateAccount />} />
 
         {/*BEN ETLOGAN*/}
-        {/* PUTANGINAMO TALAGA RICHARD GAGO KA! */}
         <Route path="/careers" element={<CareersPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/apply/:jobId" element={<ApplyPage />} />
         <Route path="/hrdashboard" element={<HRDashboard />} />
+        <Route path="/success" element={<SubmissionSuccess />} />
       </Routes>
     </Router>
   );
