@@ -61,8 +61,7 @@ const CreateAccount = () => {
       }
 
       setSuccess(true);
-      // Optional: Redirect to login after 2 seconds
-      // setTimeout(() => window.location.href = "/login", 2000);
+
 
     } catch (err) {
       setError(err.message);

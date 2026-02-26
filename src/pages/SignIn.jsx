@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Header from '../components/HRHeader';
 
 const SignIn = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [showPassword, setShowPassword] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-const [isExtracting, setIsExtracting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +18,7 @@ const [isExtracting, setIsExtracting] = useState(false);
     setError(null);
 
     try {
-      // para ma akses backend taena perwisyo
+
       const response = await fetch('http://localhost:8000/hr/login', {
         method: 'POST',
         headers: {
@@ -34,10 +37,9 @@ const [isExtracting, setIsExtracting] = useState(false);
       }
 
       localStorage.setItem('token', data.access_token);
-      
 
       console.log("Login Success:", data);
-
+      navigate('/hrdashboard');
 
     } catch (err) {
       setError(err.message);
@@ -48,12 +50,14 @@ const [isExtracting, setIsExtracting] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-white via-[#fff5f7] to-[#ffeef2] font-['Inter',_sans-serif] antialiased">
- 
-      <a href="#" className="text-gray-500 hover:text-gray-800 text-[13px] flex items-center mb-8 transition-colors group">
+      
+      {/* Navigation Link */}
+      <a href="/" className="text-gray-500 hover:text-gray-800 text-[13px] flex items-center mb-8 transition-colors group">
         <i className="fa-solid fa-arrow-left mr-2 text-[10px] transition-transform group-hover:-translate-x-1"></i> 
         Back to Home
       </a>
 
+      {/* Brand Section */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-5">
           <div className="w-12 h-12 flex items-center justify-center">
@@ -68,6 +72,7 @@ const [isExtracting, setIsExtracting] = useState(false);
         </p>
       </div>
 
+      {/* Login Card */}
       <div className="bg-white rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.05)] w-full max-w-[440px] p-10 border border-gray-50">
         <div className="flex items-center justify-center mb-2">
           <h2 className="text-[19px] font-bold text-[#1a1a1a] flex items-center tracking-[-0.025em]">
@@ -79,6 +84,7 @@ const [isExtracting, setIsExtracting] = useState(false);
           Enter your credentials - we'll automatically identify your account type
         </p>
 
+        {/* Error Alert */}
         {error && (
           <div className="mb-6 p-3 bg-red-50 border border-red-100 text-red-600 text-[12px] rounded-xl text-center font-medium animate-pulse">
             <i className="fa-solid fa-circle-exclamation mr-2"></i>{error}
@@ -86,6 +92,7 @@ const [isExtracting, setIsExtracting] = useState(false);
         )}
 
         <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Email Input */}
           <div>
             <label className="block text-[13px] font-bold text-[#1a1a1a] mb-2">Email Address</label>
             <input 
@@ -98,6 +105,7 @@ const [isExtracting, setIsExtracting] = useState(false);
             />
           </div>
 
+          {/* Password Input */}
           <div>
             <label className="block text-[13px] font-bold text-[#1a1a1a] mb-2">Password</label>
             <div className="relative">
@@ -123,6 +131,7 @@ const [isExtracting, setIsExtracting] = useState(false);
             <a href="#" className="text-[13px] font-semibold text-[#D60041] hover:text-[#b50037]">Forgot password?</a>
           </div>
 
+          {/* Submit Button */}
           <button 
             type="submit"
             disabled={isLoading}
@@ -142,7 +151,6 @@ const [isExtracting, setIsExtracting] = useState(false);
           </p>
         </div>
 
-
         <div className="mt-8 text-center">
           <p className="text-[14px] text-gray-600">
             Don't have an account? 
@@ -151,12 +159,11 @@ const [isExtracting, setIsExtracting] = useState(false);
         </div>
       </div>
 
-
+      {/* Footer */}
       <footer className="mt-12 text-center text-[11px] text-gray-400 space-y-1.5 font-medium">
         <p className="tracking-tight">&copy; 2025 Mariwasa Siam Ceramics Inc. All rights reserved.</p>
         <p className="opacity-80">Automated Resume Analysis System - Secure & Confidential</p>
       </footer>
-
     </div>
   );
 };
